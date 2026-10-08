@@ -2,6 +2,23 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { WeddingData, BudgetItem, SavingsEntry, Guest, Vendor, Task, WeddingSettings } from './types';
 
+// Re-export types for convenience
+export type { 
+  WeddingSettings, 
+  BudgetItem, 
+  SavingsEntry, 
+  Guest, 
+  Vendor, 
+  VendorType,
+  VendorCategory,
+  ContractStatus,
+  CustomChecklistItem,
+  VendorPhoto,
+  Task,
+  TaskCategory,
+  TaskAssignee
+} from './types';
+
 interface WeddingStore extends WeddingData {
   updateSettings: (settings: Partial<WeddingSettings>) => void;
   addBudgetItem: (item: Omit<BudgetItem, 'id'>) => void;
