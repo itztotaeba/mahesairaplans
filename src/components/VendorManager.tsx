@@ -69,7 +69,7 @@ export default function VendorManager() {
         newPhotos.push({
           id: Math.random().toString(36).substr(2, 9),
           url: reader.result as string,
-          uploadedAt: new Date().toISOString(),
+          createdAt: new Date().toISOString(),
         });
         if (newPhotos.length === filesToProcess.length) {
           setPhotos((prev) => [...prev, ...newPhotos].slice(0, 5));

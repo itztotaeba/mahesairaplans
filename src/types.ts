@@ -41,11 +41,19 @@ export type VendorType = 'All-in' | 'Satuan';
 export type VendorCategory = 'WO' | 'Katering' | 'Venue' | 'MUA' | 'Fotografi' | 'Dekorasi' | 'Entertainment' | 'Busana' | 'MC' | 'Undangan & Souvenir' | 'Lainnya';
 export type ContractStatus = 'Belum Kontrak' | 'Sudah DP' | 'Lunas';
 
+// Foto contoh hasil kerja vendor (max 5 per vendor) - disimpan di Supabase Storage,
+// fallback ke base64 data URL jika cloud sync tidak dikonfigurasi
 export interface VendorPhoto {
   id: string;
-  url: string;
-  caption?: string;
-  uploadedAt: string;
+  url: string; // public URL Supabase Storage atau data:image/...;base64,...
+  fileName?: string;
+  createdAt?: string;
+}
+
+export interface CustomChecklistItem {
+  id: string;
+  question: string;
+  description?: string;
 }
 
 export interface Vendor {
@@ -66,7 +74,7 @@ export interface Vendor {
   rating?: number;
   review?: string;
   checklist?: Record<string, { checked: boolean; notes: string }>;
-  customChecklist?: Array<{ id: string; question: string; description?: string }>;
+  customChecklist?: CustomChecklistItem[];
   photos?: VendorPhoto[];
   createdAt: string;
   updatedBy?: string;
