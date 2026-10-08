@@ -1,3 +1,5 @@
+// WeddingPlan Types
+
 export interface WeddingSettings {
   weddingDate: string;
   currency: string;
@@ -39,10 +41,11 @@ export type VendorType = 'All-in' | 'Satuan';
 export type VendorCategory = 'WO' | 'Katering' | 'Venue' | 'MUA' | 'Fotografi' | 'Dekorasi' | 'Entertainment' | 'Busana' | 'MC' | 'Undangan & Souvenir' | 'Lainnya';
 export type ContractStatus = 'Belum Kontrak' | 'Sudah DP' | 'Lunas';
 
-export interface CustomChecklistItem {
+export interface VendorPhoto {
   id: string;
-  question: string;
-  description?: string;
+  url: string;
+  caption?: string;
+  uploadedAt: string;
 }
 
 export interface Vendor {
@@ -63,8 +66,8 @@ export interface Vendor {
   rating?: number;
   review?: string;
   checklist?: Record<string, { checked: boolean; notes: string }>;
-  customChecklist?: CustomChecklistItem[];
-  photos?: string[]; // Array of base64 encoded images (max 5)
+  customChecklist?: Array<{ id: string; question: string; description?: string }>;
+  photos?: VendorPhoto[];
   createdAt: string;
   updatedBy?: string;
   updatedAt?: string;
@@ -87,35 +90,11 @@ export interface Task {
   updatedAt?: string;
 }
 
-export interface AppState {
+export interface WeddingData {
   settings: WeddingSettings;
   budgetItems: BudgetItem[];
   savings: SavingsEntry[];
   guests: Guest[];
   vendors: Vendor[];
   tasks: Task[];
-  updateSettings: (settings: Partial<WeddingSettings>) => void;
-  addBudgetItem: (item: Omit<BudgetItem, 'id' | 'status'>) => void;
-  updateBudgetItem: (id: string, updates: Partial<BudgetItem>) => void;
-  deleteBudgetItem: (id: string) => void;
-  addSavings: (entry: Omit<SavingsEntry, 'id'>) => void;
-  deleteSavings: (id: string) => void;
-  addGuest: (guest: Omit<Guest, 'id'>) => void;
-  updateGuest: (id: string, updates: Partial<Guest>) => void;
-  deleteGuest: (id: string) => void;
-  addVendor: (vendor: Omit<Vendor, 'id' | 'createdAt' | 'remainingBalance'>) => void;
-  updateVendor: (id: string, updates: Partial<Vendor>) => void;
-  deleteVendor: (id: string) => void;
-  addTask: (task: Omit<Task, 'id' | 'isCompleted' | 'completedAt'>) => void;
-  toggleTask: (id: string) => void;
-  deleteTask: (id: string) => void;
-  resetData: () => void;
-  importData: (data: {
-    settings: WeddingSettings;
-    budgetItems: BudgetItem[];
-    savings: SavingsEntry[];
-    guests: Guest[];
-    vendors: Vendor[];
-    tasks: Task[];
-  }) => void;
 }
